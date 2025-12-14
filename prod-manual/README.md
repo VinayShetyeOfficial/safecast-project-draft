@@ -9,17 +9,7 @@
 
 **"Privacy-First. AI-Verified. Instant Dispatch."**
 
-<p align="center">
-  <video 
-    src="image/PROD_DOCUMENTATION/1765675046023.mp4"
-    autoplay
-    loop
-    muted
-    playsinline
-    controls="false"
-    style="max-width: 100%; border-radius: 12px;">
-  </video>
-</p>
+![1765668728601](image/PROD_DOCUMENTATION/1765668728601.png)
 
 SafeCast is a production-grade, microservices-based platform designed to bridge the gap between anonymous witnesses and institutional security response. It replaces slow, bureaucratic reporting with real-time, verified intelligence.
 
