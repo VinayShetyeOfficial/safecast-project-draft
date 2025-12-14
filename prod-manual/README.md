@@ -9,7 +9,17 @@
 
 **"Privacy-First. AI-Verified. Instant Dispatch."**
 
-![1765668728601](image/PROD_DOCUMENTATION/1765668728601.png)
+<p align="center">
+  <video 
+    src="image/PROD_DOCUMENTATION/1765675046023.mp4"
+    autoplay
+    loop
+    muted
+    playsinline
+    controls="false"
+    style="max-width: 100%; border-radius: 12px;">
+  </video>
+</p>
 
 SafeCast is a production-grade, microservices-based platform designed to bridge the gap between anonymous witnesses and institutional security response. It replaces slow, bureaucratic reporting with real-time, verified intelligence.
 
@@ -38,13 +48,13 @@ The platform operates as a distributed system, designed for resilience and scala
 
 The technology choices for SafeCast are driven by requirements for performance, security, and maintainability in a production environment.
 
-| Component           | Technology                | Production Rationale                                                                                                                                                                                                                                                         |
-| :------------------ | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Frontend**  | React + Vite              | Chosen for its developer experience, with sub-millisecond Hot Module Replacement (HMR) during development, and highly optimized bundle splitting for production. This is essential for delivering low-latency reporting capabilities, even on mobile networks (3G/4G).       |
-| **Core API**  | Node.js (Express)         | Selected for its robust capability to handle high-concurrency I/O operations (such as uploading evidence files to S3 while simultaneously awaiting classification scores from the AI engine) without blocking the event loop, ensuring optimal responsiveness.               |
+| Component     | Technology                | Production Rationale                                                                                                                                                                                                                                                       |
+| :------------ | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend**  | React + Vite              | Chosen for its developer experience, with sub-millisecond Hot Module Replacement (HMR) during development, and highly optimized bundle splitting for production. This is essential for delivering low-latency reporting capabilities, even on mobile networks (3G/4G).     |
+| **Core API**  | Node.js (Express)         | Selected for its robust capability to handle high-concurrency I/O operations (such as uploading evidence files to S3 while simultaneously awaiting classification scores from the AI engine) without blocking the event loop, ensuring optimal responsiveness.             |
 | **AI Engine** | Python (FastAPI)          | Python is the industry-standard language for Machine Learning (ML) development. We leverage advanced libraries like `sentence-transformers` for semantic analysis. FastAPI provides asynchronous performance, matching or exceeding that of Go or Node.js in this context. |
-| **Database**  | PostgreSQL (Supabase)     | Primarily chosen for its advanced Row-Level Security (RLS) features. RLS allows the enforcement of granular data isolation directly at the database engine level (e.g., ensuring "Operators can ONLY select rows they own"), providing a powerful security primitive.        |
-| **Trust**     | FingerprintJS + Turnstile | Implements a "Defense in Depth" strategy to effectively prevent Sybil attacks (e.g., spam bot swarms) without degrading the user experience with intrusive CAPTCHA puzzles.                                                                                                  |
+| **Database**  | PostgreSQL (Supabase)     | Primarily chosen for its advanced Row-Level Security (RLS) features. RLS allows the enforcement of granular data isolation directly at the database engine level (e.g., ensuring "Operators can ONLY select rows they own"), providing a powerful security primitive.      |
+| **Trust**     | FingerprintJS + Turnstile | Implements a "Defense in Depth" strategy to effectively prevent Sybil attacks (e.g., spam bot swarms) without degrading the user experience with intrusive CAPTCHA puzzles.                                                                                                |
 
 ---
 
@@ -56,12 +66,12 @@ A fundamental challenge for an anonymous reporting platform is preventing "Swatt
 
 Every incoming report initiates with a baseline trust score, which is then dynamically adjusted (gaining or losing points) based on a series of invisible, server-side evaluated signals.
 
-| Signal Source              | Factor               | Weight | Logic                                                                                                                                                                                                                                                    |
-| :------------------------- | :------------------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Bot Protection**   | Cloudflare Turnstile | +20    | Verifies the requestor is a human by analyzing interaction patterns (e.g., mouse movements, touch events) without requiring explicit CAPTCHA puzzles, adding a baseline level of trust.                                                                  |
-| **Device Integrity** | FingerprintJS        | -50    | Penalizes the score if the unique browser fingerprint (a persistent, anonymized device identifier) matches a device that has been previously banned or blocked for malicious activity.                                                                   |
-| **Velocity Check**   | Rate Limiter         | -100   | Imposes a significant penalty if more than three reports originate from the same device fingerprint within a 15-minute window, effectively preventing spam floods or denial-of-service attempts.                                                         |
-| **Semantic Match**   | AI Analysis          | +10    | Boosts the score if the textual description provided in the report semantically aligns with the selected incident category (e.g., if the text describes "fire" and the category is "Hazard"), indicating internal consistency.                           |
+| Signal Source        | Factor               | Weight | Logic                                                                                                                                                                                                                                              |
+| :------------------- | :------------------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Bot Protection**   | Cloudflare Turnstile | +20    | Verifies the requestor is a human by analyzing interaction patterns (e.g., mouse movements, touch events) without requiring explicit CAPTCHA puzzles, adding a baseline level of trust.                                                            |
+| **Device Integrity** | FingerprintJS        | -50    | Penalizes the score if the unique browser fingerprint (a persistent, anonymized device identifier) matches a device that has been previously banned or blocked for malicious activity.                                                             |
+| **Velocity Check**   | Rate Limiter         | -100   | Imposes a significant penalty if more than three reports originate from the same device fingerprint within a 15-minute window, effectively preventing spam floods or denial-of-service attempts.                                                   |
+| **Semantic Match**   | AI Analysis          | +10    | Boosts the score if the textual description provided in the report semantically aligns with the selected incident category (e.g., if the text describes "fire" and the category is "Hazard"), indicating internal consistency.                     |
 | **Crowd Surge**      | Spatial Clustering   | +40    | **CRITICAL BOOST.** If three or more unique devices report similar semantic vectors (keywords, intent) for the same Safety Circle ID within a 10-minute timeframe, the system assumes a verified crisis, significantly increasing the trust score. |
 
 ### 3.2 The Routing Logic (The "Gatekeeper")
@@ -88,11 +98,11 @@ The platform moves beyond binary "Admin vs. User" roles, implementing a federate
 >
 > ![1765674066702](image/PROD_DOCUMENTATION/1765674066702.jpg)
 
-| Role Badge                                                   | Authority Level              | Capabilities                                                                                                | Immunity Status                                                                  |
-| :----------------------------------------------------------- | :--------------------------- | :---------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
-| ![Badge](https://img.shields.io/badge/SUPER_ADMIN-GOLD-gold)   | **Level 3 (Root)**     | **God Mode.** Can create/delete System Admins. Can view all data.                                     | **IMMUNE.** Cannot be suspended, demoted, or password-reset by _anyone_. |
-| ![Badge](https://img.shields.io/badge/SYSTEM_ADMIN-CYAN-cyan)  | **Level 2 (Regional)** | **Regional Command.** Can approve new Operator requests (`/request-access`). Can suspend Operators. | **PROTECTED.** Can be managed only by Super Admins.                        |
-| ![Badge](https://img.shields.io/badge/OPERATOR-GREY-lightgrey) | **Level 1 (Local)**    | **Local Command.** Restricted to managing incidents within their specific Safety Circles.             | **STANDARD.** Can be suspended by any Admin.                               |
+| Role Badge                                                     | Authority Level        | Capabilities                                                                                        | Immunity Status                                                          |
+| :------------------------------------------------------------- | :--------------------- | :-------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------- |
+| ![Badge](https://img.shields.io/badge/SUPER_ADMIN-GOLD-gold)   | **Level 3 (Root)**     | **God Mode.** Can create/delete System Admins. Can view all data.                                   | **IMMUNE.** Cannot be suspended, demoted, or password-reset by _anyone_. |
+| ![Badge](https://img.shields.io/badge/SYSTEM_ADMIN-CYAN-cyan)  | **Level 2 (Regional)** | **Regional Command.** Can approve new Operator requests (`/request-access`). Can suspend Operators. | **PROTECTED.** Can be managed only by Super Admins.                      |
+| ![Badge](https://img.shields.io/badge/OPERATOR-GREY-lightgrey) | **Level 1 (Local)**    | **Local Command.** Restricted to managing incidents within their specific Safety Circles.           | **STANDARD.** Can be suspended by any Admin.                             |
 
 ### 4.2 The "Mutiny Prevention" Logic
 
@@ -190,8 +200,7 @@ It traces the lifecycle of a high-severity report from the initial anonymous sig
 
 **Figure 6.2: Real-time AI Classification**
 
-> _The system detects the intent "Hostage situation or kidnapping" and assigns a Critical risk level._
-> ![1765666521702](image/PROD_DOCUMENTATION/1765666521702.png)
+> _The system detects the intent "Hostage situation or kidnapping" and assigns a Critical risk level._ > ![1765666521702](image/PROD_DOCUMENTATION/1765666521702.png)
 
 ### Phase 3: The "Zero-Friction" Dispatch
 
@@ -280,13 +289,11 @@ A collection of additional high-fidelity screens demonstrating the application's
 
 **Figure 9.3: Account Settings**
 
-> _Self-service security management for updating passwords and contact info._
-> ![1765669132126](image/PROD_DOCUMENTATION/1765669132126.png)
+> _Self-service security management for updating passwords and contact info._ > ![1765669132126](image/PROD_DOCUMENTATION/1765669132126.png)
 
 **Figure 9.4: Admin Roster View**
 
-> _The "God Mode" view showing all active system administrators and their status._
-> ![1765669151275](image/PROD_DOCUMENTATION/1765669151275.png)
+> _The "God Mode" view showing all active system administrators and their status._ > ![1765669151275](image/PROD_DOCUMENTATION/1765669151275.png)
 
 ---
 
@@ -294,12 +301,12 @@ A collection of additional high-fidelity screens demonstrating the application's
 
 The SafeCast architecture has been validated against concurrency stress tests to ensure reliability during high-traffic critical events. By decoupling the ingestion layer (Node.js) from the intelligence layer (Python), the platform achieves the following engineering benchmarks:
 
-| Metric                | Value                    | Technical Context                                                     |
-| :-------------------- | :----------------------- | :-------------------------------------------------------------------- |
+| Metric          | Value              | Technical Context                                                   |
+| :-------------- | :----------------- | :------------------------------------------------------------------ |
 | **E2E Latency** | **< 200ms**        | Total time from `POST /submit` payload to WhatsApp Webhook trigger. |
-| **Cold Start**  | **~1.2s**          | Python Microservice initialization time (FastAPI + PyTorch).          |
-| **Throughput**  | **Stateless**      | Horizontal scaling capability via Docker/Kubernetes orchestration.    |
-| **Security**    | **Zero-Knowledge** | No PII persistence at any layer of the stack.                         |
+| **Cold Start**  | **~1.2s**          | Python Microservice initialization time (FastAPI + PyTorch).        |
+| **Throughput**  | **Stateless**      | Horizontal scaling capability via Docker/Kubernetes orchestration.  |
+| **Security**    | **Zero-Knowledge** | No PII persistence at any layer of the stack.                       |
 
 **System Status:** `STABLE`
 **Current Version:** `v2.0.4`
