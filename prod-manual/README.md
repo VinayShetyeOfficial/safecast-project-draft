@@ -82,6 +82,12 @@ To prevent unauthorized access or "mutiny" scenarios (where a lower-level admini
 
 The platform moves beyond binary "Admin vs. User" roles, implementing a federated command structure with distinct authority levels.
 
+**Figure 4.1: Governance Hierarchy**
+
+> _Visualizing the chain of command from Super Admin down to Anonymous Reporters._
+>
+> ![1765674066702](image/PROD_DOCUMENTATION/1765674066702.jpg)
+
 | Role Badge                                                   | Authority Level              | Capabilities                                                                                                | Immunity Status                                                                  |
 | :----------------------------------------------------------- | :--------------------------- | :---------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
 | ![Badge](https://img.shields.io/badge/SUPER_ADMIN-GOLD-gold)   | **Level 3 (Root)**     | **God Mode.** Can create/delete System Admins. Can view all data.                                     | **IMMUNE.** Cannot be suspended, demoted, or password-reset by _anyone_. |
@@ -113,6 +119,7 @@ const checkImmunity = async (req, res, next) => {
 If a Level 2 System Admin attempts to view or modify the Level 3 Super Admin's profile within the dashboard, the frontend automatically engages a specialized Lockout UI to enforce the immunity protocol.
 
 **Figure 4.1**: The "Access Denied" screen triggered when a lower-tier admin attempts to access the Super Admin dossier.
+
 ![1765664392591](image/PROD_DOCUMENTATION/1765664392591.png)
 
 ---
@@ -183,7 +190,8 @@ It traces the lifecycle of a high-severity report from the initial anonymous sig
 
 **Figure 6.2: Real-time AI Classification**
 
-> _The system detects the intent "Hostage situation or kidnapping" and assigns a Critical risk level._ > ![1765666521702](image/PROD_DOCUMENTATION/1765666521702.png)
+> _The system detects the intent "Hostage situation or kidnapping" and assigns a Critical risk level._
+> ![1765666521702](image/PROD_DOCUMENTATION/1765666521702.png)
 
 ### Phase 3: The "Zero-Friction" Dispatch
 
@@ -258,21 +266,27 @@ A collection of additional high-fidelity screens demonstrating the application's
 
 **Figure 9.1: The Public Landing Page**
 
-> _Modern, high-contrast landing page explaining the anonymous reporting capability._ ![1765669058338](image/PROD_DOCUMENTATION/1765669058338.png)
+> _Modern, high-contrast landing page explaining the anonymous reporting capability._
+>
+> ![1765669058338](image/PROD_DOCUMENTATION/1765669058338.png)
 
 **Figure 9.2: Operator Portal Login**
 
-> _Secure entry point for authorized personnel._ ![1765669097911](image/PROD_DOCUMENTATION/1765669097911.png)
+> _Secure entry point for authorized personnel._
+>
+> ![1765669097911](image/PROD_DOCUMENTATION/1765669097911.png)
 
 ### ⚙️ User Management
 
 **Figure 9.3: Account Settings**
 
-> _Self-service security management for updating passwords and contact info._ ![1765669132126](image/PROD_DOCUMENTATION/1765669132126.png)
+> _Self-service security management for updating passwords and contact info._
+> ![1765669132126](image/PROD_DOCUMENTATION/1765669132126.png)
 
 **Figure 9.4: Admin Roster View**
 
-> _The "God Mode" view showing all active system administrators and their status._ > ![1765669151275](image/PROD_DOCUMENTATION/1765669151275.png)
+> _The "God Mode" view showing all active system administrators and their status._
+> ![1765669151275](image/PROD_DOCUMENTATION/1765669151275.png)
 
 ---
 
