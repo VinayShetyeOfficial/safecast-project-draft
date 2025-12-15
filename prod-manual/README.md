@@ -168,10 +168,9 @@ It traces the lifecycle of a high-severity report from the initial anonymous sig
 
 **Figure:** Safety Circle QR Code + Print Label.
 
-<div style="display: flex; gap: 20px;">
-  <img src="image/PROD_DOCUMENTATION/1765666697263.png" width="600"/>
-  <img src="image/PROD_DOCUMENTATION/1765666936383.png" width="600"/>
-</div>
+> ![1765666697263](image/PROD_DOCUMENTATION/1765666697263.png)
+
+> ![1765666936383](image/PROD_DOCUMENTATION/1765666936383.png)
 
 **Figure 6.1: The Context-Aware Report Form**
 
