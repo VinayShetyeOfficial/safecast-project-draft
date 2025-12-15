@@ -1,13 +1,13 @@
-# SAFECAST
+# 🛡️  SafeCast / AlertaComunidad
 
-# 🛡️ SafeCast: Decentralized Community Safety Platform
+## Decentralized Community Safety Platform
 
 ![Build Status](https://img.shields.io/badge/Build-Passing-success?style=for-the-badge&logo=github)
 ![Stack](https://img.shields.io/badge/Stack-MERN_%2B_Python_AI-orange?style=for-the-badge)
 ![Security](https://img.shields.io/badge/Security-Zero_Knowledge-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-**"Privacy-First. AI-Verified. Instant Dispatch."**
+**Privacy-First | AI-Verified | Instant Dispatch**
 
 ![1765668728601](image/PROD_DOCUMENTATION/1765668728601.png)
 
